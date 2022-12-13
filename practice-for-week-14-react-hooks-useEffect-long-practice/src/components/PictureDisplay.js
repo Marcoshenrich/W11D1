@@ -34,7 +34,9 @@ function PictureDisplay ({ size, featherCount, featherColors }) {
   // TODO: Wrap in useEffect
 
   useEffect(() => {
-    console.log('PictureDisplay size', size);
+    const pic = document.querySelector('.image-area')
+    // pic.classList.remove(className[1])
+    // pic.classList.add(size)
   }, [size]);
 
   useEffect(() => {
