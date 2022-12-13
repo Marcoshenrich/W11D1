@@ -11,8 +11,10 @@ function Form(props) {
         phoneType: "",
         role: "",
         bio: "",
-        signup: ""
+        signup: false
     })
+
+    const [checkbox, setCheckbox] = useState(false)
 
     const [errors, setErrors] = useState([])
 
@@ -24,14 +26,23 @@ function Form(props) {
     const handleChange = (incomingKey) => { 
         return e => { 
             const newObj = Object.assign({}, user, {[incomingKey]: e.target.value})
+            console.log(e.target.value)
+            console.log("before " + user.signup)
             setUser(newObj)
+            console.log("after " + user.signup)
         }
     }
 
     const handleSubmit= (e) => { 
+
+        const newObj = Object.assign({}, user, {"signup": checkbox})
+        setUser(newObj)
+        console.log(user)
+
         e.preventDefault()
         let errors = validate()
         if (errors.length) {
+            //code that submits
             setErrors(errors)
         } else { 
             setUser({
@@ -55,8 +66,6 @@ function Form(props) {
             <label>Name
                 <input type="text" value={user.name} onChange={handleChange("name")} />
             </label>
-
-                {console.log( user.signup)}
 
             <label>Email
                     <input type="text" value={user.email} onChange={handleChange("email")} />
@@ -83,7 +92,7 @@ function Form(props) {
             </label>
 
             <label>Get Notifications
-                    <input type="checkbox" onChange={handleChange("signup")} value={user.signup ? true : false} checked={user.signup === 'true'} />
+                    <input type="checkbox" name="signup" onChange={()=> setCheckbox(!checkbox)} value={user.signup} defaultChecked={false} />
             </label>
             <button>submit</button>
         </form>
